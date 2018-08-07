@@ -9,9 +9,20 @@
 	<title>면접질문 업로드</title>
 </head>
 <body>
+	<% 
+		String userID = null;
+		if(session.getAttribute("userID") != null){
+			userID = (String)session.getAttribute("userID");
+		}
+		if(userID == null){
+			out.println("<script>alert('잘못된 접근입니다.');</script>");
+			response.sendRedirect("login.jsp");
+			return;
+		}
+	%>
 	<div>
 		<form method="POST" action="./InsertQuestionServlet">
-			<input type="hidden" name="userID" value="<%=session.getAttribute("userID")%>">
+			<input type="hidden" name="userID" value="<%=userID%>">
 			<fieldset>
 				<legend>
 					<font size="5px">Upload Question </font>

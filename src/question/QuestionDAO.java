@@ -97,7 +97,6 @@ public class QuestionDAO {
 				if (pstmt != null) pstmt.close();
 				if (conn != null) conn.close();
 			} catch (Exception e) {
-				System.out.println("DAO 에러");
 				e.printStackTrace();
 			}
 		}

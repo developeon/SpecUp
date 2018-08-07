@@ -56,7 +56,7 @@ body::-webkit-scrollbar {
 				<option value="인성" <%if(searchType.equals("인성")) out.println("selected");%>>인성</option>
 				<option value="기타" <%if(searchType.equals("기타")) out.println("selected");%>>기타</option>
 			</select>
-			<input type="text" name="search">
+			<input type="text" name="search" value="<%=search%>">
 			<button type="submit" class="search_btn">
 				<i class="fa fa-search"></i>
 			</button>
