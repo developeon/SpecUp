@@ -1,0 +1,17 @@
+<Context path="/SpecUp" docBase="www">
+<Resource
+	name="jdbc/SpecUp"
+	auth="Container"
+	type="javax.sql.DataSource"
+	driverClassName="com.mysql.jdbc.Driver"
+	loginTimeout="10"
+	validationQuery="SELECT 1 FROM DUAL"
+	maxWait="5000"
+	username="root"
+	password="root"
+	testOnBorrow="true"
+	url="jdbc:mysql://localhost:3306/SpecUp?useSSL=false"/>
+<ResourceLink type="javax.sql.data.DataSource"
+	name="jdbc/SpecUp"
+	global="jdbc/SpecUp"/>
+</Context>

@@ -1,0 +1,58 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+body,
+html {
+    height: 100%;
+}
+
+header {
+    text-align: center;
+    
+}
+
+
+nav ul {
+    padding: 10px 0;
+    list-style: none;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+    letter-spacing: 2px;
+    padding: 0 20px;
+}
+
+nav ul li a {
+    color: black;
+}
+
+nav ul li a:hover {
+    color: gray;
+}
+
+hr {
+    margin: 10px 0px;
+}
+
+
+footer {
+    text-align: center;
+}
+
+footer a {
+    color: gray;
+}
+
+footer a:hover {
+    color: #cbcbcb;
+}
+
+section {
+    margin: 0% 10%;
+    height: 65%
+}
+

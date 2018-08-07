@@ -1,0 +1,32 @@
+ body {
+     padding: 5%;
+ }
+ 
+ body::-webkit-scrollbar {
+     display: none;
+ }
+ 
+ nav {
+     text-align: right;
+ }
+ 
+ nav select {
+     background: #e0dfdf;
+     padding: 5px;
+     height: 30px;
+ }
+ 
+ .search_btn {
+     padding: 5px;
+     background: #2461ab;
+     color: white;
+     border: none;
+     cursor: pointer;
+     height: 30px;
+ }
+ 
+ .add {
+     position: fixed;
+     right: 30px;
+     bottom: 30px;
+ }
