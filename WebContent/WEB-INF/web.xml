@@ -25,4 +25,14 @@
     <servlet-name>UserLoginServlet</servlet-name>
     <url-pattern>/userLogin</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <servlet-name>DeleteProjectServlet</servlet-name>
+    <servlet-class>project.DeleteProjectServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteProjectServlet</servlet-name>
+    <url-pattern>/deleteProject</url-pattern>
+  </servlet-mapping>
+  
+  <!-- deleteProject -->
 </web-app>

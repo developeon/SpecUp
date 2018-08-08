@@ -189,4 +189,26 @@ public class ProjectDAO {
 		}
 		return "";
 	}
+	
+	public int delete(String projectID) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String SQL = "DELETE FROM PROJECT WHERE projectID = ?";
+		try {
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, projectID);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null) pstmt.close();
+				if (conn != null) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return -1;
+	}
 }
