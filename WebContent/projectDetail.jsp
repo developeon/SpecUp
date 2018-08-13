@@ -13,10 +13,10 @@
 	<title></title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script>
-		function deleteProjectFunction(){
+		function projectDeleteFunction(){
 			$.ajax({
 				type : 'GET',
-				url : "./deleteProject",
+				url : "./projectDelete",
 				data : {
 					projectID : encodeURIComponent('<%=projectID%>')
 				},
@@ -52,8 +52,8 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				<a href="updateProject.jsp?projectID=<%=project.getProjectId()%>"><button type="button">수정</button></a><!-- TODO: 수정기능 구현, 활동 부분에 년도 없애고 내부,외부로만 구분, 디자인 개편(삭제,수정 버튼 디자인은 grade부분 이랑 맞추기)  -->
-				<button type="button" onclick="deleteProjectFunction()">삭제</button>
+				<a href="projectUpdate.jsp?projectID=<%=project.getProjectId()%>"><button type="button">수정</button></a><!-- TODO: 수정기능 구현, 활동 부분에 년도 없애고 내부,외부로만 구분, 디자인 개편(삭제,수정 버튼 디자인은 grade부분 이랑 맞추기)  -->
+				<button type="button" onclick="projectDeleteFunction()">삭제</button>
 			</td> 
 		</tr>
 	</table>

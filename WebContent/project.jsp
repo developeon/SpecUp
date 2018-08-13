@@ -119,7 +119,7 @@
 		}
 	%>
 	<img class="add" src="img/addBtn.png"
-		onClick="location.href='insertProject.jsp';">
+		onClick="location.href='projectInsert.jsp';">
 		
 		<%
 		 }

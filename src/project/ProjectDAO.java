@@ -211,4 +211,33 @@ public class ProjectDAO {
 		}
 		return -1;
 	}
+	
+	public int updateProject(String projectID, String fileName, String fileRealName, String title, String content, String status) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String SQL = "UPDATE PROJECT SET fileName = ?, fileRealName = ?, title = ?, content = ?, status = ? WHERE projectID = ?"; 
+		try {
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, fileName);
+			pstmt.setString(2, fileRealName);
+			pstmt.setString(3, title);
+			pstmt.setString(4, content);
+			pstmt.setString(5, status);
+			pstmt.setInt(6, Integer.parseInt(projectID));
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+				if (conn != null) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return -1; // DB오류
+	}
 }

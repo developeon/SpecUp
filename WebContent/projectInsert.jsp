@@ -22,7 +22,7 @@
 		}
 	%>
 	<div>
-		<form  method="post" action="insertProjectAction.jsp" enctype="multipart/form-data">
+		<form  method="post" action="./projectInsert" enctype="multipart/form-data">
 			<input type="hidden" value="<%=userID%>" name="userID">
 			<fieldset>
 				<legend>

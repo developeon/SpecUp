@@ -13,10 +13,7 @@ pageEncoding="UTF-8"%>
      </style>
  </head>
  <body>
- <center>
- <video src = "media/video/mainAd.mp4" autoplay width="100%" height="100%" controls></video>
- </center>
- 
+ <video src = "media/video/mainAd.mp4" autoplay controls></video>
  <%
 		String messageContent = null;
 		if(session.getAttribute("messageContent") != null){
