@@ -15,10 +15,11 @@
 		}
 	%>
 	<meta charset="UTF-8">
-	<link rel="stylesheet"
-		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/common.css">
 	<link rel="stylesheet" href="css/summary.css">
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<title>면접질문</title>
 	<style>
 		body::-webkit-scrollbar {
@@ -30,7 +31,7 @@
 		}
 		
 		.page-link {
-			background: #e0dfdf;
+			background-color: #e0dfdf;
 			border: 1px solid #e0dfdf;
 			padding: 5px;
 			margin: 5px;
@@ -40,6 +41,43 @@
 		.disabled {
 			background: #c8c8c8;
 			border: 1px solid #c8c8c8;
+		}
+	</style>
+	<!-- DROPDOWN 메뉴 -->
+	<style>
+		.dropbtn {
+		    border: none;
+		    cursor: pointer;
+		    border: none;
+		    outline: none;
+		}
+
+		.dropdown {
+		    position: relative;
+		    display: inline-block;
+		}
+		
+		.dropdown-content {
+		    display: none;
+		    position: absolute;
+		    right: 0;
+		    background-color: #f9f9f9;
+		    width: 70px;
+		    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+		    z-index: 1;
+		}
+		
+		.dropdown-content a {
+		    color: black;
+		    padding: 12px 16px;
+		    text-decoration: none;
+		    display: block;
+		}
+		
+		.dropdown-content a:hover {background-color: #f1f1f1;}
+		
+		.dropdown:hover .dropdown-content {
+		    display: block;
 		}
 	</style>
 </head>
@@ -93,7 +131,15 @@
 				QuestionDTO question = questionList.get(i);
 	%>
 	<details>
-		<summary>[<%=question.getType()%>] <%=question.getQuestion()%></summary>
+		<summary>[<%=question.getType()%>] <%=question.getQuestion()%>
+			<span class="dropdown" style="float:right;">
+				<i class="fa fa-ellipsis-v" style="font-size:24px" class="dropbtn"></i>
+				<span class="dropdown-content">
+					<a href="questionUpdate.jsp?questionID=<%=question.getQuestionID()%>">수정</a>
+					<a href="#" onclick="deleteFunction(<%=question.getQuestionID()%>)">삭제</a>
+				</span>
+			</span>
+		</summary>
 		<p><%=question.getAnswer()%></p>
 	</details>
 	<%
@@ -132,6 +178,27 @@
 		}
 		session.removeAttribute("messageContent");
 	%>
+	
+	<script>
+	function deleteFunction(questionID){
+		$.ajax({
+			type : "GET",
+			url : "./QuestionDeleteServlet",
+			data : {
+				questionID : questionID
+			},
+			success : function(data){
+				if(data=="success"){
+					alert("삭제되었습니다.");
+				}
+				else{
+					alert("ERROR");
+				}
+				location.reload();
+			}
+		});
+	}
+	</script>
 </body>
 
 </html>

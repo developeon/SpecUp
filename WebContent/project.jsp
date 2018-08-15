@@ -168,7 +168,7 @@
     				"style='width:100%;height:100%;'>");
     		$('#status').html(status);
     		$('#title').html(title);
-    		$('#file').html("<a href='projectDownload.jsp?projectID=" + projectID +"' style='color:black;text-decoration:none;'><i class='fa fa-save'></i> " + fileName +"</a>");
+    		$('#file').html("<a href='projectDownload.jsp?projectID=" + projectID +"' style='color:black;text-decoration:none;'><i class='fa fa-download'></i> " + fileName +"</a>");
     		$('#content').html(content);
     		$('#controlButton').html("<a href='projectUpdate.jsp?projectID=" +projectID + "'><button type='button' class='detail-button'>수정</button></a>" +
     				"&nbsp;<button type='button' class='detail-button' onclick='deleteFunction(" + projectID +")'>삭제</button>"); 

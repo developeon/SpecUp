@@ -41,14 +41,6 @@
 		<url-pattern>/projectInsert</url-pattern>
 	</servlet-mapping>
 	<servlet>
-		<servlet-name>ProjectDeleteServlet</servlet-name>
-		<servlet-class>project.ProjectDeleteServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ProjectDeleteServlet</servlet-name>
-		<url-pattern>/projectDelete</url-pattern>
-	</servlet-mapping>
-	<servlet>
 		<servlet-name>ProjectUpdateServlet</servlet-name>
 		<servlet-class>project.ProjectUpdateServlet</servlet-class>
 	</servlet>
@@ -74,16 +66,6 @@
 		<servlet-name>ActiveInsertServlet</servlet-name>
 		<url-pattern>/activeInsert</url-pattern>
 	</servlet-mapping>
-	
-	 
-	<servlet>
-		<servlet-name>ActiveDeleteServlet</servlet-name>
-		<servlet-class>active.ActiveDeleteServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ActiveDeleteServlet</servlet-name>
-		<url-pattern>/activeDelete</url-pattern>
-	</servlet-mapping>
 	<servlet>
 		<servlet-name>ActiveUpdateServlet</servlet-name>
 		<servlet-class>active.ActiveUpdateServlet</servlet-class>
@@ -99,5 +81,15 @@
 	<servlet-mapping>
 		<servlet-name>ActiveDetailServlet</servlet-name>
 		<url-pattern>/ActiveDetail</url-pattern>
+	</servlet-mapping>
+	
+	<!-- QUESTION -->
+	<servlet>
+		<servlet-name>QuestionUpdateServlet</servlet-name>
+		<servlet-class>question.QuestionUpdateServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>QuestionUpdateServlet</servlet-name>
+		<url-pattern>/questionUpdate</url-pattern>
 	</servlet-mapping>
 </web-app>

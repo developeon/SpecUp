@@ -169,7 +169,7 @@
     				"style='width:100%;height:100%;'>");
     		$('#type').html(type);
     		$('#title').html(title);
-    		$('#file').html("<a href='activeDownload.jsp?activeID=" + activeID +"' style='color:black;text-decoration:none;'><i class='fa fa-save'></i> " + fileName +"</a>");
+    		$('#file').html("<a href='activeDownload.jsp?activeID=" + activeID +"' style='color:black;text-decoration:none;'><i class='fa fa-download'></i> " + fileName +"</a>");
     		$('#content').html(content);
     		$('#controlButton').html("<a href='activeUpdate.jsp?activeID=" +activeID + "'><button type='button' class='detail-button'>수정</button></a>" +
     				"&nbsp;<button type='button' class='detail-button' onclick='deleteFunction(" + activeID +")'>삭제</button>"); 

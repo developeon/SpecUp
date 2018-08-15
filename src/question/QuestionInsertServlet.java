@@ -27,7 +27,7 @@ public class QuestionInsertServlet extends HttpServlet {
 			answer = "";
 		}
 		
-		int result = new QuestionDAO().inesertQuqestion(userID, type, question, answer);
+		int result = new QuestionDAO().inesert(userID, type, question, answer);
 		
 		if(result == 1) {
 			request.getSession().setAttribute("messageContent", "등록되었습니다.");

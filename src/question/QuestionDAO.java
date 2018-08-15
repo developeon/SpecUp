@@ -22,33 +22,6 @@ public class QuestionDAO {
 		}
 	}
 
-	public int inesertQuqestion(String userID, String type, String question, String answer) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String SQL = "INSERT INTO QUESTION VALUES(null,?, ?, ?, ?)";
-		try {
-			conn = dataSource.getConnection();
-			pstmt = conn.prepareStatement(SQL);
-			pstmt.setString(1, userID);
-			pstmt.setString(2, type);
-			pstmt.setString(3, question);
-			pstmt.setString(4, answer);
-			return pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (rs != null) rs.close();
-				if (pstmt != null) pstmt.close();
-				if (conn != null) conn.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		return -1; // DB오류
-	}
-
 	public ArrayList<QuestionDTO> getList(String userID, String searchType, String search, int pageNumber) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -102,5 +75,113 @@ public class QuestionDAO {
 		}
 
 		return questionList;
+	}
+
+	public QuestionDTO getQuestion(int questionID) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String SQL = "SELECT * FROM QUESTION WHERE questionID = ?";
+		QuestionDTO question = new QuestionDTO();
+		try {
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, questionID);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				question.setQuestionID(rs.getInt("questionID"));
+				question.setUserID(rs.getString("userID"));
+				question.setQuestion(rs.getString("question"));
+				question.setAnswer(rs.getString("answer"));
+				question.setType(rs.getString("type"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+				if (conn != null) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return question;
+	}
+	
+	public int inesert(String userID, String type, String question, String answer) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String SQL = "INSERT INTO QUESTION VALUES(null,?, ?, ?, ?)";
+		try {
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, userID);
+			pstmt.setString(2, type);
+			pstmt.setString(3, question);
+			pstmt.setString(4, answer);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+				if (conn != null) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return -1; // DB오류
+	}
+	
+	public int delete(int quetsionID) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String SQL = "DELETE FROM QUESTION WHERE questionID = ?";
+		try {
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, quetsionID);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null) pstmt.close();
+				if (conn != null) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return -1;
+	}
+
+	public int update(int questionID, String question, String answer, String type) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String SQL = "UPDATE QUESTION SET question = ?, answer = ?, type = ? WHERE questionID = ?"; 
+		try {
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, question);
+			pstmt.setString(2, answer);
+			pstmt.setString(3, type);
+			pstmt.setInt(4, questionID);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+				if (conn != null) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return -1; // DB오류
 	}
 }
