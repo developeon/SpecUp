@@ -28,7 +28,7 @@ public class ProjectUpdateServlet extends HttpServlet {
 		
 		MultipartRequest multi = null;
 		int maxSize = 1024 * 1024 * 100; //100MB
-		String savePath = request.getSession().getServletContext().getRealPath("/upload").replaceAll("\\\\", "/");
+		String savePath = request.getSession().getServletContext().getRealPath("/upload/project").replaceAll("\\\\", "/");
 		try {
 			multi = new MultipartRequest(request, savePath, maxSize, "UTF-8", new DefaultFileRenamePolicy());
 		}catch (Exception e) {

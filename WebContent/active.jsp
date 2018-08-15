@@ -1,6 +1,6 @@
+<%@page import="active.ActiveDAO"%>
+<%@page import="active.ActiveDTO"%>
 <%@page import="java.net.URLEncoder"%>
-<%@page import="project.ProjectDAO"%>
-<%@page import="project.ProjectDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -32,7 +32,7 @@
             border: 1px solid #c8c8c8;
         }
 	</style>
-<title>프로젝트</title>
+<title>활동</title>
 </head>
 
 <body>
@@ -59,15 +59,15 @@
 		if (userID == null) {
 			out.println("<h5>로그인 후 이용해주세요</h5>");
 		} else {
-			ArrayList<ProjectDTO> projectList = null;
-			projectList = new ProjectDAO().getList(userID, searchType, search, pageNumber);
+			ArrayList<ActiveDTO> activeList = null;
+			activeList = new ActiveDAO().getList(userID, searchType, search, pageNumber);
 	%>
 	<nav>
-		<form action="project.jsp" method="get">
+		<form action="active.jsp" method="get">
 			<select name="searchType">
 				<option value="전체">전체</option>
-				<option value="진행중" <%if(searchType.equals("진행중")) out.println("selected");%>>진행중</option>
-				<option value="종료" <%if(searchType.equals("종료")) out.println("selected");%>>종료</option>
+				<option value="내부" <%if(searchType.equals("내부")) out.println("selected");%>>내부활동</option>
+				<option value="외부" <%if(searchType.equals("외부")) out.println("selected");%>>외부활동</option>
 			</select>
 			<input type="text" name="search" value="<%=search%>" style="height: 30px;">
 			<button type="submit" class="search_btn">
@@ -78,36 +78,37 @@
 	
 	<div id="columns">
 		<%
-		if(projectList != null){
-			for(int i=0; i<projectList.size(); i++){
+		if(activeList != null){
+			for(int i=0; i<activeList.size(); i++){
 				if(i==18) break;
-				ProjectDTO project = projectList.get(i);
+				ActiveDTO active = activeList.get(i);
 		%>
-		<figure onclick="showDetailFunction(<%=project.getProjectID()%>)">
-			<img src="http://localhost:8080/SpecUp/upload/project/<%=project.getFileRealName()%>">
-			<figcaption>[<%=project.getStatus()%>] <%=project.getTitle()%></figcaption>
+		<figure onclick="showDetailFunction(<%=active.getActiveID()%>)">
+			<img src="http://localhost:8080/SpecUp/upload/active/<%=active.getFileRealName()%>">
+			<figcaption>[<%=active.getType()%>] <%=active.getTitle()%></figcaption>
 		</figure>
 		<%}
 			}%>
 	</div>
 	
+	
 	<div class="link-container">
 	<%  if(pageNumber <= 0){
 			out.println("<a class='page-link disabled'>이전</a>");
 		} else{ %>
-			<a class="page-link" href="./project.jsp?searchType=<%=URLEncoder.encode(searchType,"UTF-8")%>
+			<a class="page-link" href="./active.jsp?searchType=<%=URLEncoder.encode(searchType,"UTF-8")%>
 				&search=<%=URLEncoder.encode(search,"UTF-8")%>&pageNumber=<%=pageNumber-1%>">이전</a>
 	<%  }
 	
-		if(projectList.size() < 19){
+		if(activeList.size() < 19){
 			out.println("<a class='page-link disabled'>다음</a>");
 		} else{ %>
-			<a class="page-link" href="./project.jsp?searchType=<%=URLEncoder.encode(searchType,"UTF-8")%>
+			<a class="page-link" href="./active.jsp?searchType=<%=URLEncoder.encode(searchType,"UTF-8")%>
 					&search=<%=URLEncoder.encode(search,"UTF-8")%>&pageNumber=<%=pageNumber+1%>">다음</a>
 	<%  } %>
 	</div>
 	
-	<img class="add" src="img/addBtn.png" onClick="location.href='projectInsert.jsp';">
+	<img class="add" src="img/addBtn.png" onClick="location.href='activeInsert.jsp';">
 		
 	<%
 	}
@@ -122,7 +123,7 @@
 			  <div class="detail-image" id="detail-image">
 			  </div>
 			  <div class="detail-info">
-				<p>[<span id="status"></span>] <span id="title"></span></p>
+				<p>[<span id="type"></span>] <span id="title"></span></p>
 				<hr>
 				<p><span id="file"></span></p>
 				<hr>
@@ -136,12 +137,12 @@
 	        
     <!-- detail modal script -->
     <script>
-    	function showDetailFunction(projectID){
+    	function showDetailFunction(activeID){
     		$.ajax({
 				type : "GET",
-				url : "./ProjectDetail",
+				url : "./ActiveDetail",
 				data : {
-					projectID : projectID
+					activeID : activeID
 				},
 				success : function(data){
 					if(data == "") return;
@@ -154,7 +155,7 @@
     		$("#detailModal").css("display", "block");
     	}
     	
-    	function showDetail(projectID, userID, fileName, fileRealName, title, content, status){
+    	function showDetail(activeID, userID, fileName, fileRealName, title, content, type){
     		if(fileName.length > 15) {
     			fileName = fileName.substring(0, 15);
     			fileName += "...";
@@ -164,22 +165,22 @@
     			title += "...";
     		}
     		
-    		$("#detail-image").html("<img src='http://localhost:8080/SpecUp/upload/project/" + fileRealName + "'" + 
+    		$("#detail-image").html("<img src='http://localhost:8080/SpecUp/upload/active/" + fileRealName + "'" + 
     				"style='width:100%;height:100%;'>");
-    		$('#status').html(status);
+    		$('#type').html(type);
     		$('#title').html(title);
-    		$('#file').html("<a href='projectDownload.jsp?projectID=" + projectID +"' style='color:black;text-decoration:none;'><i class='fa fa-save'></i> " + fileName +"</a>");
+    		$('#file').html("<a href='activeDownload.jsp?activeID=" + activeID +"' style='color:black;text-decoration:none;'><i class='fa fa-save'></i> " + fileName +"</a>");
     		$('#content').html(content);
-    		$('#controlButton').html("<a href='projectUpdate.jsp?projectID=" +projectID + "'><button type='button' class='detail-button'>수정</button></a>" +
-    				"&nbsp;<button type='button' class='detail-button' onclick='deleteFunction(" + projectID +")'>삭제</button>"); 
+    		$('#controlButton').html("<a href='activeUpdate.jsp?activeID=" +activeID + "'><button type='button' class='detail-button'>수정</button></a>" +
+    				"&nbsp;<button type='button' class='detail-button' onclick='deleteFunction(" + activeID +")'>삭제</button>"); 
     	}
     	
-    	function deleteFunction(projectID){
+    	function deleteFunction(activeID){
     		$.ajax({
 				type : "GET",
-				url : "./ProjectDeleteServlet",
+				url : "./ActiveDeleteServlet",
 				data : {
-					projectID : projectID
+					activeID : activeID
 				},
 				success : function(data){
 					if(data=="success"){

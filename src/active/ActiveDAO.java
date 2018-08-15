@@ -9,8 +9,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import project.ProjectDTO;
-
 public class ActiveDAO {
 	DataSource dataSource;
 
@@ -35,10 +33,10 @@ public class ActiveDAO {
 				SQL = "SELECT * FROM ACTIVE WHERE userID = ? AND CONCAT(title, content) LIKE ? ORDER BY activeID DESC LIMIT "
 						+ pageNumber * 18 + ", " + pageNumber * 18 + 19;
 			} else if(searchType.equals("외부")) {
-				SQL = " SELECT * FROM ACTIVE WHERE userID = ? AND type = '진행중' AND CONCAT(title, content) LIKE ? ORDER BY activeID DESC LIMIT "
+				SQL = " SELECT * FROM ACTIVE WHERE userID = ? AND type = '외부' AND CONCAT(title, content) LIKE ? ORDER BY activeID DESC LIMIT "
 						+ pageNumber * 18 + ", " + pageNumber * 18 + 19;
 			} else {
-				SQL = " SELECT * FROM PROJECT WHERE userID = ? AND type = '종료' AND CONCAT(title, content) LIKE ? ORDER BY activeID DESC LIMIT "
+				SQL = " SELECT * FROM ACTIVE WHERE userID = ? AND type = '내부' AND CONCAT(title, content) LIKE ? ORDER BY activeID DESC LIMIT "
 						+ pageNumber * 18 + ", " + pageNumber * 18 + 19;
 			}
 			
@@ -107,13 +105,11 @@ public class ActiveDAO {
 		return active;
 	}
 	
-	
-    /* TODO: 여기서부터  project->active로 수정 */
-	public int insert(String userID, String fileName, String fileRealName, String title, String content, String status) {
+	public int insert(String userID, String fileName, String fileRealName, String title, String content, String type) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String SQL = "INSERT INTO PROJECT VALUES(null, ?, ?, ?, ?, ?, ?)";
+		String SQL = "INSERT INTO ACTIVE VALUES(null, ?, ?, ?, ?, ?, ?)";
 		try {
 			conn = dataSource.getConnection();
 			pstmt = conn.prepareStatement(SQL);
@@ -122,7 +118,7 @@ public class ActiveDAO {
 			pstmt.setString(3, fileRealName);
 			pstmt.setString(4, title);
 			pstmt.setString(5, content);
-			pstmt.setString(6, status);
+			pstmt.setString(6, type);
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -138,14 +134,14 @@ public class ActiveDAO {
 		return -1; // DB오류
 	}
 	
-	public int delete(int projectID) {
+	public int delete(int activeID) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		String SQL = "DELETE FROM PROJECT WHERE projectID = ?";
+		String SQL = "DELETE FROM ACTIVE WHERE activeID = ?";
 		try {
 			conn = dataSource.getConnection();
 			pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, projectID);
+			pstmt.setInt(1, activeID);
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -160,11 +156,11 @@ public class ActiveDAO {
 		return -1;
 	}
 	
-	public int update(int projectID, String fileName, String fileRealName, String title, String content, String status) {
+	public int update(int activeID, String fileName, String fileRealName, String title, String content, String type) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String SQL = "UPDATE PROJECT SET fileName = ?, fileRealName = ?, title = ?, content = ?, status = ? WHERE projectID = ?"; 
+		String SQL = "UPDATE ACTIVE SET fileName = ?, fileRealName = ?, title = ?, content = ?, type = ? WHERE activeID = ?"; 
 		try {
 			conn = dataSource.getConnection();
 			pstmt = conn.prepareStatement(SQL);
@@ -172,8 +168,8 @@ public class ActiveDAO {
 			pstmt.setString(2, fileRealName);
 			pstmt.setString(3, title);
 			pstmt.setString(4, content);
-			pstmt.setString(5, status);
-			pstmt.setInt(6, projectID);
+			pstmt.setString(5, type);
+			pstmt.setInt(6, activeID);
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -189,15 +185,15 @@ public class ActiveDAO {
 		return -1; // DB오류
 	}
 	
-	public String getfileName(int projectID) {
+	public String getfileName(int activeID) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String SQL = "SELECT fileName FROM PROJECT WHERE projectId = ?";
+		String SQL = "SELECT fileName FROM ACTIVE WHERE activeID = ?";
 		try {
 			conn = dataSource.getConnection();
 			pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, projectID);
+			pstmt.setInt(1, activeID);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				return rs.getString("fileName");
@@ -216,15 +212,15 @@ public class ActiveDAO {
 		return "";
 	}
 	
-	public String getFileRealName(int projectID) {
+	public String getFileRealName(int activeID) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String SQL = "SELECT fileRealName FROM PROJECT WHERE projectId = ?";
+		String SQL = "SELECT fileRealName FROM ACTIVE WHERE activeID = ?";
 		try {
 			conn = dataSource.getConnection();
 			pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, projectID);
+			pstmt.setInt(1, activeID);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				return rs.getString("fileRealName");

@@ -1,6 +1,6 @@
 <%@page import="java.io.FileInputStream"%>
 <%@page import="java.io.File"%>
-<%@page import="project.ProjectDAO"%>
+<%@page import="active.ActiveDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -12,15 +12,15 @@
 <body>
 	<%
 		request.setCharacterEncoding("UTF-8");
-		String projectID = request.getParameter("projectID");
+		String activeID = request.getParameter("activeID");
 		
-		if(projectID == null || projectID.equals("")){
+		if(activeID == null || activeID.equals("")){
 			response.sendRedirect("mainVideo.jsp");
 			return;
 		}
 		
-		String fileName = new ProjectDAO().getFileRealName(Integer.parseInt(projectID));
-		String directory = this.getServletContext().getRealPath("/upload/project");
+		String fileName = new ActiveDAO().getFileRealName(Integer.parseInt(activeID));
+		String directory = this.getServletContext().getRealPath("/upload/active");
 		File file = new File(directory + "/" + fileName);
 		
 		String mimeType = getServletContext().getMimeType(file.toString());
@@ -28,7 +28,7 @@
 			response.setContentType("application/octet-stream");
 		}
 		
-		String downloadName = new ProjectDAO().getfileName(Integer.parseInt(projectID));
+		String downloadName = new ActiveDAO().getfileName(Integer.parseInt(activeID));
 		if(request.getHeader("user-agent").indexOf("MSIE") == -1) { 
 			downloadName = new String(downloadName.getBytes("UTF-8"), "8859_1");
 		}
