@@ -141,6 +141,6 @@
     <section>
         <iframe name="iframe1" frameborder="0" width="100%" height="100%" src="mainVideo.jsp"></iframe>
     </section>
-    <footer> <address> <small>&copy;</small> 2018. KimSoEon. All rights reserved. E-mail: <a href="mailto:a1thdjs@e-mirim.hs.kr">a1thdjs@e-mirim.hs.kr</a>. Tel: 010-6684-5181.</address> </footer>
+    <footer> <small>&copy;</small> 2018. KimSoEon. All rights reserved.</footer>
 </body>
 </html>

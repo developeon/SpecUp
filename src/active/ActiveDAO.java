@@ -1,4 +1,4 @@
-package project;
+package active;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,10 +9,12 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-public class ProjectDAO {
+import project.ProjectDTO;
+
+public class ActiveDAO {
 	DataSource dataSource;
 
-	public ProjectDAO() {
+	public ActiveDAO() {
 		try {
 			InitialContext initContext = new InitialContext();
 			Context envContext = (Context) initContext.lookup("java:/comp/env");
@@ -22,21 +24,21 @@ public class ProjectDAO {
 		}
 	}
 	
-	public ArrayList<ProjectDTO> getList(String userID, String searchType, String search, int pageNumber) {
+	public ArrayList<ActiveDTO> getList(String userID, String searchType, String search, int pageNumber) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		ArrayList<ProjectDTO> projectList = null;
+		ArrayList<ActiveDTO> activeList = null;
 		String SQL = "";
 		try {
 			if(searchType.equals("전체")) {
-				SQL = "SELECT * FROM PROJECT WHERE userID = ? AND CONCAT(title, content) LIKE ? ORDER BY projectID DESC LIMIT "
+				SQL = "SELECT * FROM ACTIVE WHERE userID = ? AND CONCAT(title, content) LIKE ? ORDER BY activeID DESC LIMIT "
 						+ pageNumber * 18 + ", " + pageNumber * 18 + 19;
-			} else if(searchType.equals("진행중")) {
-				SQL = " SELECT * FROM PROJECT WHERE userID = ? AND status = '진행중' AND CONCAT(title, content) LIKE ? ORDER BY projectID DESC LIMIT "
+			} else if(searchType.equals("외부")) {
+				SQL = " SELECT * FROM ACTIVE WHERE userID = ? AND type = '진행중' AND CONCAT(title, content) LIKE ? ORDER BY activeID DESC LIMIT "
 						+ pageNumber * 18 + ", " + pageNumber * 18 + 19;
 			} else {
-				SQL = " SELECT * FROM PROJECT WHERE userID = ? AND status = '종료' AND CONCAT(title, content) LIKE ? ORDER BY projectID DESC LIMIT "
+				SQL = " SELECT * FROM PROJECT WHERE userID = ? AND type = '종료' AND CONCAT(title, content) LIKE ? ORDER BY activeID DESC LIMIT "
 						+ pageNumber * 18 + ", " + pageNumber * 18 + 19;
 			}
 			
@@ -45,17 +47,17 @@ public class ProjectDAO {
 			pstmt.setString(1, userID);
 			pstmt.setString(2, "%" + search + "%");
 			rs = pstmt.executeQuery();
-			projectList = new ArrayList<ProjectDTO>();
+			activeList = new ArrayList<ActiveDTO>();
 			while (rs.next()) {
-				ProjectDTO project = new ProjectDTO();
-				project.setProjectID(rs.getInt("projectID"));
-				project.setUserID(rs.getString("userID"));
-				project.setFileName(rs.getString("fileName"));
-				project.setFileRealName(rs.getString("fileRealName"));
-				project.setTitle(rs.getString("title"));
-				project.setContent(rs.getString("content"));
-				project.setStatus(rs.getString("status"));
-				projectList.add(project);
+				ActiveDTO active = new ActiveDTO();
+				active.setActiveID(rs.getInt("activeID"));
+				active.setUserID(rs.getString("userID"));
+				active.setFileName(rs.getString("fileName"));
+				active.setFileRealName(rs.getString("fileRealName"));
+				active.setTitle(rs.getString("title"));
+				active.setContent(rs.getString("content"));
+				active.setType(rs.getString("type"));
+				activeList.add(active);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -68,28 +70,28 @@ public class ProjectDAO {
 				e.printStackTrace();
 			}
 		}
-		return projectList;
+		return activeList;
 	}
 	
-	public ProjectDTO getProject(int projectID) {
+	public ActiveDTO getActive(int activeID) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String SQL = "SELECT * FROM PROJECT WHERE projectID = ?";
-		ProjectDTO project = new ProjectDTO();
+		String SQL = "SELECT * FROM ACTIVE WHERE activeID = ?";
+		ActiveDTO active = new ActiveDTO();
 		try {
 			conn = dataSource.getConnection();
 			pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, projectID);
+			pstmt.setInt(1, activeID);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				project.setProjectID(rs.getInt("projectID"));
-				project.setUserID(rs.getString("userID"));
-				project.setFileName(rs.getString("fileName"));
-				project.setFileRealName(rs.getString("fileRealName"));
-				project.setTitle(rs.getString("title"));
-				project.setContent(rs.getString("content"));
-				project.setStatus(rs.getString("status"));
+				active.setActiveID(rs.getInt("activeID"));
+				active.setUserID(rs.getString("userID"));
+				active.setFileName(rs.getString("fileName"));
+				active.setFileRealName(rs.getString("fileRealName"));
+				active.setTitle(rs.getString("title"));
+				active.setContent(rs.getString("content"));
+				active.setType(rs.getString("type"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -102,11 +104,11 @@ public class ProjectDAO {
 				e.printStackTrace();
 			}
 		}
-		return project;
+		return active;
 	}
 	
 	
-
+    /* TODO: 여기서부터  project->active로 수정 */
 	public int insert(String userID, String fileName, String fileRealName, String title, String content, String status) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;

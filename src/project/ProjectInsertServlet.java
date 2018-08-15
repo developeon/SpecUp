@@ -43,7 +43,7 @@ public class ProjectInsertServlet extends HttpServlet {
 		String status = multi.getParameter("status");
 
 
-		new ProjectDAO().inesertProject(userID,fileName, fileRealName, title, content, status);
+		new ProjectDAO().insert(userID,fileName, fileRealName, title, content, status);
 		
 		response.sendRedirect("project.jsp");
 	}

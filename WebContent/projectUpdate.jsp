@@ -32,13 +32,14 @@
 			return;
 		}
 		ProjectDAO projectDAO = new ProjectDAO();
-		ProjectDTO project = projectDAO.getProject(projectID);
+		ProjectDTO project = projectDAO.getProject(Integer.parseInt(projectID));
 	%>
 	<button type="button" style="position: fixed; top: 10px; right: 10px;"
 		onclick="parent.document.getElementById('detailFrame').style.display = 'none';">&times;</button>
 	<div>
 		<form  method="post" action="./projectUpdate" enctype="multipart/form-data">
 			<input type="hidden" value="<%=projectID%>" name="projectID">
+			<h2 style="text-align: center;">프로젝트 수정</h2>
 				<p>
 					<select name="status">
 						<option value="진행중" <%if(project.getStatus().equals("진행중")) out.println("selected"); %>>진행중</option>
@@ -54,7 +55,6 @@
 				<p>
 					<textarea rows="5" cols="50" placeholder="Content" name="content"><%=project.getContent()%></textarea>
 				</p>
-				<input type="reset" value="Cancel"> 
 				<input type="submit" value="Submit">
 		</form>
 	</div>

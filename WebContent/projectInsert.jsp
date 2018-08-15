@@ -24,10 +24,7 @@
 	<div>
 		<form  method="post" action="./projectInsert" enctype="multipart/form-data">
 			<input type="hidden" value="<%=userID%>" name="userID">
-			<fieldset>
-				<legend>
-					<font size="5px">Upload Project </font>
-				</legend>
+			<h2 style="text-align: center;">프로젝트 등록</h2>
 				<p>
 					<select name="status">
 						<option value="진행중">진행중</option>
@@ -45,7 +42,6 @@
 				</p>
 				<input type="reset" value="Cancel"> 
 				<input type="submit" value="Submit">
-			</fieldset>
 		</form>
 	</div>
 </body>

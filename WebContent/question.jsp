@@ -103,7 +103,7 @@ body::-webkit-scrollbar {
 	%>
 
 	<img class="add" src="img/addBtn.png"
-		onClick="location.href='insertQuestion.jsp';">
+		onClick="location.href='questionInsert.jsp';">
 
 	<%
 		}

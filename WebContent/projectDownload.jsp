@@ -19,7 +19,7 @@
 			return;
 		}
 		
-		String fileName = new ProjectDAO().getFileRealName(projectID);
+		String fileName = new ProjectDAO().getFileRealName(Integer.parseInt(projectID));
 		String directory = this.getServletContext().getRealPath("/upload");
 		File file = new File(directory + "/" + fileName);
 		
@@ -28,7 +28,7 @@
 			response.setContentType("application/octet-stream");
 		}
 		
-		String downloadName = new ProjectDAO().getfileName(projectID);
+		String downloadName = new ProjectDAO().getfileName(Integer.parseInt(projectID));
 		if(request.getHeader("user-agent").indexOf("MSIE") == -1) { 
 			downloadName = new String(downloadName.getBytes("UTF-8"), "8859_1");
 		}

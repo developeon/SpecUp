@@ -21,12 +21,9 @@
 		}
 	%>
 	<div>
-		<form method="POST" action="./InsertQuestionServlet">
+		<form method="POST" action="./QuestionInsertServlet">
 			<input type="hidden" name="userID" value="<%=userID%>">
-			<fieldset>
-				<legend>
-					<font size="5px">Upload Question </font>
-				</legend>
+			<h2 style="text-align: center;">면접질문 등록</h2>
 				<label for="type">분야</label> 
 					<select id="type" name="type">
 						<option value="전공">전공</option>
@@ -38,7 +35,6 @@
 				<label for="answer">답</label>
 				<input type="text" id="answer" name="answer" placeholder="Your Answer">
 				<input type="submit" value="Submit">
-			</fieldset>
 		</form>
 	</div>
 </body>

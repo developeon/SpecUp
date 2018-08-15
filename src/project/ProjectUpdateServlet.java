@@ -37,7 +37,7 @@ public class ProjectUpdateServlet extends HttpServlet {
 			return;
 		}
 		
-		String projectID = multi.getParameter("projectID");
+		int projectID = Integer.parseInt(multi.getParameter("projectID"));
 		String title = multi.getParameter("title");
 		String content = multi.getParameter("content");
 		String status = multi.getParameter("status");
@@ -60,8 +60,8 @@ public class ProjectUpdateServlet extends HttpServlet {
 			fileRealName = projectDAO.getFileRealName(projectID);
 		}
 
-		new ProjectDAO().updateProject(projectID, fileName, fileRealName, title, content, status);
+		new ProjectDAO().update(projectID, fileName, fileRealName, title, content, status);
 		
-		response.sendRedirect("projectDetail.jsp?projectID=" + projectID);
+		response.sendRedirect("project.jsp");
 	}
 }

@@ -7,35 +7,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="Author" content="3102Kimsoeon">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="css/pinterest.css">
-<link rel="stylesheet" href="css/common.css">
+	<meta charset="UTF-8">
+	<meta name="Author" content="3102Kimsoeon">
+	<link rel="stylesheet" href="css/pinterest.css">
+	<link rel="stylesheet" href="css/common.css">
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<style>
+		.link-container{
+			text-align: center;
+		}
+		.page-link{
+			background: #e0dfdf;
+            border: 1px solid #e0dfdf;
+            padding: 5px;
+            margin: 5px;
+        	text-decoration: none;
+           
+        }
+        
+        .disabled{
+        	background: #c8c8c8;
+            border: 1px solid #c8c8c8;
+        }
+	</style>
 <title>프로젝트</title>
-<style>
-	/* iframe css  */
-	.detailFrame {
-		display: none;
-		width:600px;
-		height:400px;
-		position: fixed;
-	    left: calc( 50% - 300px ); 
-	    top: calc( 50% - 200px );
-	    z-index: 11;
-		background-color: #f7f8f9;
-		border: 1px solid block;
-		border-radius: 5px;
-	}
-</style>
-<script>
-	function iframeControlFunction(projectID){
-		var detailFrame = document.getElementById("detailFrame");
-		detailFrame.src = "projectDetail.jsp?projectID=" + projectID;
-		detailFrame.style.display = "block";
-	}
-</script>
 </head>
 
 <body>
@@ -65,7 +62,6 @@
 			ArrayList<ProjectDTO> projectList = null;
 			projectList = new ProjectDAO().getList(userID, searchType, search, pageNumber);
 	%>
-	<iframe id = "detailFrame" class = "detailFrame"></iframe>
 	<nav>
 		<form action="project.jsp" method="get">
 			<select name="searchType">
@@ -84,10 +80,10 @@
 		<%
 		if(projectList != null){
 			for(int i=0; i<projectList.size(); i++){
-				if(i==5) break;
+				if(i==18) break;
 				ProjectDTO project = projectList.get(i);
 		%>
-		<figure onclick="iframeControlFunction(<%=project.getProjectId()%>)">
+		<figure onclick="showDetailFunction(<%=project.getProjectID()%>)">
 			<img src="http://localhost:8080/SpecUp/upload/<%=project.getFileRealName()%>">
 			<figcaption>[<%=project.getStatus()%>] <%=project.getTitle()%></figcaption>
 		</figure>
@@ -95,35 +91,108 @@
 			}%>
 	</div>
 	
-	<%
-		if(pageNumber <= 0){
-	%>
-			<a class="page-link disabled">이전</a>
-	<%
-		} else{
-	%>
+	<div class="link-container">
+	<%  if(pageNumber <= 0){
+			out.println("<a class='page-link disabled'>이전</a>");
+		} else{ %>
 			<a class="page-link" href="./project.jsp?searchType=<%=URLEncoder.encode(searchType,"UTF-8")%>
 				&search=<%=URLEncoder.encode(search,"UTF-8")%>&pageNumber=<%=pageNumber-1%>">이전</a>
-	<%
-		}
+	<%  }
 	
-		if(projectList.size() < 6){
-	%>
-			<a class="page-link disabled">다음</a>
-	<% 
-		} else{
-	%>
+		if(projectList.size() < 19){
+			out.println("<a class='page-link disabled'>다음</a>");
+		} else{ %>
 			<a class="page-link" href="./project.jsp?searchType=<%=URLEncoder.encode(searchType,"UTF-8")%>
 					&search=<%=URLEncoder.encode(search,"UTF-8")%>&pageNumber=<%=pageNumber+1%>">다음</a>
-	<%
-		}
-	%>
-	<img class="add" src="img/addBtn.png"
-		onClick="location.href='projectInsert.jsp';">
+	<%  } %>
+	</div>
+	
+	<img class="add" src="img/addBtn.png" onClick="location.href='projectInsert.jsp';">
 		
-		<%
-		 }
-		 %>
+	<%
+	}
+	%>
+		 
+	<!-- detail modal -->
+	<div id="detailModal" class="modal">
+  		<div class="modal-content" style="position: relative;">
+			<span class="close" onclick="document.getElementById('detailModal').style.display='none'"
+				style="position: absolute;top: 0px;right:10px;">&times;</span>
+			<div class="detail-container">
+			  <div class="detail-image" id="detail-image">
+			  </div>
+			  <div class="detail-info">
+				<p>[<span id="status"></span>] <span id="title"></span></p>
+				<hr>
+				<p><span id="file"></span></p>
+				<hr>
+				<p style="height: 221px;overflow-y:auto;"><span id="content" style="word-break: break-all;"></span></p>
+				<hr>
+				<p style="text-align: center;"><span id="controlButton"></span></p>
+			  </div>
+			</div>
+  		</div>
+	</div>
+	        
+    <!-- detail modal script -->
+    <script>
+    	function showDetailFunction(projectID){
+    		$.ajax({
+				type : "GET",
+				url : "./ProjectDetail",
+				data : {
+					projectID : projectID
+				},
+				success : function(data){
+					if(data == "") return;
+					var parsed = JSON.parse(data);
+					var result = parsed.result;
+					showDetail(result[0][0].value, result[0][1].value, result[0][2].value, result[0][3].value,
+							result[0][4].value, result[0][5].value, result[0][6].value);
+				}
+			});
+    		$("#detailModal").css("display", "block");
+    	}
+    	
+    	function showDetail(projectID, userID, fileName, fileRealName, title, content, status){
+    		if(fileName.length > 15) {
+    			fileName = fileName.substring(0, 15);
+    			fileName += "...";
+    		}
+    		if(title.length > 10) {
+    			title = title.substring(0, 10);
+    			title += "...";
+    		}
+    		
+    		$("#detail-image").html("<img src='http://localhost:8080/SpecUp/upload/" + fileRealName + "'" + 
+    				"style='width:100%;height:100%;'>");
+    		$('#status').html(status);
+    		$('#title').html(title);
+    		$('#file').html("<a href='projectDownload.jsp?projectID=" + projectID +"' style='color:black;text-decoration:none;'><i class='fa fa-save'></i> " + fileName +"</a>");
+    		$('#content').html(content);
+    		$('#controlButton').html("<a href='projectUpdate.jsp?projectID=" +projectID + "'><button type='button' class='detail-button'>수정</button></a>" +
+    				"&nbsp;<button type='button' class='detail-button' onclick='deleteFunction(" + projectID +")'>삭제</button>"); 
+    	}
+    	
+    	function deleteFunction(projectID){
+    		$.ajax({
+				type : "GET",
+				url : "./ProjectDeleteServlet",
+				data : {
+					projectID : projectID
+				},
+				success : function(data){
+					if(data=="success"){
+						alert("삭제되었습니다.");
+					}
+					else{
+						alert("ERROR");
+					}
+					location.reload();
+				}
+			});
+    	}
+    </script>
 </body>
 
 </html>
