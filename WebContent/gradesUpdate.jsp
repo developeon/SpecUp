@@ -1,3 +1,4 @@
+<%@page import="grades.GradesDTO"%>
 <%@page import="grades.GradesDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -8,6 +9,11 @@
 <meta charset="UTF-8">
 <meta name="Author" content="3102Kimsoeon">
 <link rel="stylesheet" href="css/insertStyle.css">
+<style>
+	input[type=text], input[type=number]{
+		width:45%;
+	}
+</style>
 <title>성적 수정</title>
 </head>
 <body>
@@ -37,32 +43,24 @@
 		}
 		
 		GradesDAO gradesDAO = new GradesDAO();
+		ArrayList<GradesDTO> gradesList = gradesDAO.getList(userID, type, Integer.parseInt(grade), Integer.parseInt(semester));
+		GradesDTO gradesDTO = null;
 	%>
 	<div>
-		<form method="POST" action="./gradeUpdate">
+		<form method="POST" action="./gradesUpdate">
 			<h2 style="text-align: center;">성적 수정</h2>
-			<table>
-				<thead>
-					<tr>
-						<%
-							ArrayList<String> subjectList = gradesDAO.getSujectList(userID, type, Integer.parseInt(grade), Integer.parseInt(semester));
-							for (int k = 0; k < subjectList.size(); k++) {
-								out.println("<th>" + subjectList.get(k) + "</th>");
-							}
-						%>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<%
-							ArrayList<Integer> scoreList = gradesDAO.getScoreList(userID, type, Integer.parseInt(grade), Integer.parseInt(semester));
-							for (int m = 0; m < scoreList.size(); m++) {
-								out.println("<td>" + scoreList.get(m) + "점</td>");
-							}
-						%>
-					</tr>
-				</tbody>
-			</table>
+	<%
+			for(int i=0; i<gradesList.size(); i++){
+				gradesDTO = gradesList.get(i);
+	%>
+				<p style="text-align: center;">
+					<input type="text" name="subject<%=gradesDTO.getGradesID()%>" value="<%=gradesDTO.getSubject()%>" required="required" maxlength="4">
+					<input type="number" name="score<%=gradesDTO.getGradesID()%>" value="<%=gradesDTO.getScore()%>" required="required" max="100" min="0">
+				<p>
+	<%
+			}
+	%>
+			<input type="submit" value="수정완료">
 		</form>
 	</div>
 </body>

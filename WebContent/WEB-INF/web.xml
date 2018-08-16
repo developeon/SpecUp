@@ -89,4 +89,12 @@
     <servlet-name>GradesInsertServlet</servlet-name>
     <url-pattern>/gradesInsert</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>GradesUpdateServlet</servlet-name>
+    <servlet-class>grades.GradesUpdateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GradesUpdateServlet</servlet-name>
+    <url-pattern>/gradesUpdate</url-pattern>
+  </servlet-mapping>
 </web-app>

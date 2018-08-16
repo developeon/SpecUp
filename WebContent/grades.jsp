@@ -1,3 +1,4 @@
+<%@page import="grades.GradesDTO"%>
 <%@page import="java.net.URLDecoder"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="grades.GradesDAO"%>
@@ -88,9 +89,12 @@ pageEncoding="UTF-8"%>
 	    </nav>
     	<section>
     		<%
+    			ArrayList<GradesDTO> gradesList = null;
     			for(int i=1; i<=3; i++){
     				for(int j=1; j<=2; j++){
     					/* out.println("[" + i + "학년" + j + "학기" + "]"); */
+    					gradesList = gradesDAO.getList(userID, type, i, j);
+    					if(gradesList.size()>0){
     		%>
     					<article>
     						[<%=i%>학년 <%=j%>학기]
@@ -98,9 +102,8 @@ pageEncoding="UTF-8"%>
 				            	<thead>
 				            		<tr>
 				                        <% 
-				                         ArrayList<String> subjectList = gradesDAO.getSujectList(userID, type, i, j);
-				                         for(int k =0; k< subjectList.size(); k++){
-				                        	 out.println("<th>" + subjectList.get(k) +"</th>");
+				                         for(int k =0; k< gradesList.size(); k++){
+				                        	 out.println("<th>" + gradesList.get(k).getSubject() +"</th>");
 				                         }
 				                        %>
 				                    </tr>
@@ -108,18 +111,17 @@ pageEncoding="UTF-8"%>
 				                <tbody>
 					       			 <tr>
 				                        <% 
-				                         ArrayList<Integer> scoreList = gradesDAO.getScoreList(userID, type, i, j);
-				                         for(int m =0; m< scoreList.size(); m++){
-				                        	 out.println("<td>" + scoreList.get(m) +"점</td>");
+				                         for(int m =0; m< gradesList.size(); m++){
+				                        	 out.println("<td>" + gradesList.get(m).getScore() +"점</td>");
 				                         }
 				                        %>
 				                    </tr>
 				                </tbody>
 			            	</table>
-				            <input type="button" class = "tableOption" value="수정" onclick="updateFunction(<%=i%>,<%=j%>)">
 				            <input type="button" class = "tableOption" value="삭제" onclick="deleteFunction(<%=i%>,<%=j%>)"> 
+				            <input type="button" class = "tableOption" value="수정" onclick="updateFunction(<%=i%>,<%=j%>)">
 			        	</article>
-    		<%
+    		<%			}
     				}
     			}
     		%>

@@ -9,6 +9,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import question.QuestionDTO;
+
 public class GradesDAO {
 	DataSource dataSource;
 
@@ -51,70 +53,6 @@ public class GradesDAO {
 		return -1; // DB오류
 	}
 	
-	public ArrayList<String> getSujectList(String userID, String type, int grade, int semester) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String SQL = "SELECT subject FROM GRADES WHERE userID = ? AND type = ? AND grade = ? AND semester = ?";
-		
-		ArrayList<String> subjectList = new ArrayList<String>();
-		try {
-			conn = dataSource.getConnection();
-			pstmt = conn.prepareStatement(SQL);
-			pstmt.setString(1, userID);
-			pstmt.setString(2, type);
-			pstmt.setInt(3, grade);
-			pstmt.setInt(4, semester);
-			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				subjectList.add(rs.getString("subject"));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-				try {
-					if (rs != null) rs.close();
-					if (pstmt != null) pstmt.close();
-					if (conn != null) conn.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-		}
-		return subjectList;
-	}
-	
-	public ArrayList<Integer> getScoreList(String userID, String type, int grade, int semester) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String SQL = "SELECT score FROM GRADES WHERE userID = ? AND type = ? AND grade = ? AND semester = ?";
-		
-		ArrayList<Integer> scoreList = new ArrayList<Integer>();
-		try {
-			conn = dataSource.getConnection();
-			pstmt = conn.prepareStatement(SQL);
-			pstmt.setString(1, userID);
-			pstmt.setString(2, type);
-			pstmt.setInt(3, grade);
-			pstmt.setInt(4, semester);
-			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				scoreList.add(rs.getInt("score"));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-				try {
-					if (rs != null) rs.close();
-					if (pstmt != null) pstmt.close();
-					if (conn != null) conn.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-		}
-		return scoreList;
-	}
-
 	public int delete(String userID, int grade, int semester) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -137,6 +75,73 @@ public class GradesDAO {
 			}
 		}
 		return -1;
+	}
+	
+	public ArrayList<GradesDTO> getList(String userID, String type, int grade, int semester) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<GradesDTO> gradesList = null;
+		String SQL = "SELECT * FROM GRADES WHERE userID = ? AND type = ? AND grade = ? AND semester = ?";
+		try {
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, userID);
+			pstmt.setString(2, type);
+			pstmt.setInt(3, grade);
+			pstmt.setInt(4, semester);
+			rs = pstmt.executeQuery();
+			gradesList = new ArrayList<GradesDTO>();
+			while (rs.next()) {
+				GradesDTO grades = new GradesDTO();
+				grades.setGradesID(rs.getInt("gradesID"));
+				grades.setUserID(rs.getString("userID"));
+				grades.setType(rs.getString("type"));
+				grades.setGrade(rs.getInt("grade"));
+				grades.setSemester(rs.getInt("semester"));
+				grades.setSubject(rs.getString("subject"));
+				grades.setScore(rs.getInt("score"));
+				gradesList.add(grades);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+				if (conn != null) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return gradesList;
+	}
+	
+	public int update(int gradesID, String subject, int score) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String SQL = "UPDATE GRADES SET subject = ?, score = ? WHERE gradesID = ?"; 
+		try {
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, subject);
+			pstmt.setInt(2, score);
+			pstmt.setInt(3, gradesID);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+				if (conn != null) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return -1; // DB오류
 	}
 	
 }
