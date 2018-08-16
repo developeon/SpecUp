@@ -3,6 +3,7 @@ package user;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -19,6 +20,40 @@ public class UserDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public ArrayList<UserDTO> userList(String search){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String SQL = "SELECT * FROM USER WHERE CONCAT(userID,userName,userTel,userGender,userEmail) LIKE ?";
+		ArrayList<UserDTO> userList = new ArrayList<UserDTO>();
+		try {
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, "%" + search + "%");
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				UserDTO user = new UserDTO();
+				user.setUserID(rs.getString("userID"));
+				user.setUserName(rs.getString("userName"));
+				user.setUserTel(rs.getString("userTel"));
+				user.setUserGender(rs.getString("userGender").charAt(0));
+				user.setUserEmail(rs.getString("userEmail"));
+				userList.add(user);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return userList;
 	}
 	
 	public int login(String userID, String userPassword) {
@@ -113,5 +148,27 @@ public class UserDAO {
 			}
 		}
 		return -1; //DB오류
+	}
+
+	public int delete(String userID) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String SQL = "DELETE FROM USER WHERE userID = ?";
+		try {
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, userID);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null) pstmt.close();
+				if (conn != null) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return -1;
 	}
 }

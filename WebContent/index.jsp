@@ -117,8 +117,12 @@
 	 		<a href="login.jsp" target="iframe1">로그인</a> 
 	 		<a href="join.jsp" target="iframe1">회원가입</a> 
 	 	<%
-	 	}
-	 	else{
+	 	} else if(userID.equals("mirim")){
+	 	%>
+	 		<a href="index.jsp">홈</a> 
+	 		<a href="admin.jsp" target="iframe1">관리자</a> 
+	 		<a href="logout.jsp">로그아웃</a>
+	 	<% } else {
 	 	%>
 	 		<a href="index.jsp">홈</a> 
 	 		<a href="logout.jsp">로그아웃</a>

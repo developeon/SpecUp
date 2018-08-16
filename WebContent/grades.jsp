@@ -16,6 +16,7 @@ pageEncoding="UTF-8"%>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <style>
         table {
+            margin-top: 10px;
             width: 100%;
        		overflow-x: scroll; 
             display: block;

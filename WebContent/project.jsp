@@ -159,10 +159,6 @@
     			fileName = fileName.substring(0, 15);
     			fileName += "...";
     		}
-    		if(title.length > 10) {
-    			title = title.substring(0, 10);
-    			title += "...";
-    		}
     		
     		$("#detail-image").html("<img src='http://localhost:8080/SpecUp/upload/project/" + fileRealName + "'" + 
     				"style='width:100%;height:100%;'>");
