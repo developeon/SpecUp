@@ -100,12 +100,12 @@
 		}
 
 		if (userID == null) {
-			out.println("<h5>로그인 후 이용해주세요</h5>");
+			out.println("<h5 style='text-align:center;'>로그인 후 이용해주세요</h5>");
 		} else {
 			ArrayList<QuestionDTO> questionList = null;
 			questionList = new QuestionDAO().getList(userID, searchType, search, pageNumber);
 	%>
-	<nav>
+	<nav style="margin-bottom: 20px;">
 		<form action="question.jsp" method="get">
 			<select name="searchType">
 				<option value="전체">전체</option>
@@ -119,7 +119,7 @@
 					<%if (searchType.equals("기타"))
 					out.println("selected");%>>기타</option>
 			</select> 
-			<input type="text" name="search" value="<%=search%>" style="height: 30px;">
+			<input type="text" name="search" value="<%=search%>" style="height: 24px;">
 			<button type="submit" class="search_btn"><i class="fa fa-search"></i></button>
 		</form>
 	</nav>
@@ -146,7 +146,7 @@
 			}
 		}
 	%>
-	<div class="link-container">
+	<div class="link-container" style="margin-top: 60px;">
 	<%	if (pageNumber <= 0) { %>
 		<a class="page-link disabled">이전</a>
 	<%	} else { %>

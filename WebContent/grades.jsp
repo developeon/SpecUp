@@ -73,7 +73,7 @@ pageEncoding="UTF-8"%>
 		if(request.getParameter("type") != null) type = request.getParameter("type");
 		
 		if(userID == null){
-			out.println("<h5>로그인 후 이용해주세요</h5>");
+			out.println("<h5 style='text-align:center;'>로그인 후 이용해주세요</h5>");
 		} //userID == null
 		else{
 			

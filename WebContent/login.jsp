@@ -36,11 +36,6 @@
 				required>
 			<button type="button" class="submitBtn" onclick="checkFormFunction()">Login</button>
 		</div>
-		<div class="container signin">
-			<p style="text-align: right;">
-				Forgot <a href="findUser.jsp"> Account?</a>
-			</p>
-		</div>
 	</form>
 	
 	<%

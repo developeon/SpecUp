@@ -57,7 +57,7 @@
 		}
 		
 		if (userID == null) {
-			out.println("<h5>로그인 후 이용해주세요</h5>");
+			out.println("<h5 style='text-align:center;'>로그인 후 이용해주세요</h5>");
 		} else {
 			ArrayList<ActiveDTO> activeList = null;
 			activeList = new ActiveDAO().getList(userID, searchType, search, pageNumber);
@@ -127,7 +127,7 @@
 				<hr>
 				<p><span id="file"></span></p>
 				<hr>
-				<p style="height: 221px;overflow-y:auto;"><span id="content" style="word-break: break-all;"></span></p>
+				<p style="height: 258px;overflow-y:auto;"><span id="content" style="word-break: break-all;"></span></p>
 				<hr>
 				<p style="text-align: center;"><span id="controlButton"></span></p>
 			  </div>
