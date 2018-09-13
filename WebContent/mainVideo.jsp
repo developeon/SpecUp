@@ -1,3 +1,4 @@
+<%@page import="advertisement.AdvertisementDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" 
 pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,7 +14,7 @@ pageEncoding="UTF-8"%>
      </style>
  </head>
  <body>
- <video src = "media/video/mainAd.mp4" autoplay controls></video>
+ <video src = "<%=new AdvertisementDAO().getAdPath()%>" autoplay controls></video>
  <%
 		String messageContent = null;
 		if(session.getAttribute("messageContent") != null){

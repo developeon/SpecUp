@@ -60,7 +60,7 @@ public class ProjectUpdateServlet extends HttpServlet {
 			fileRealName = projectDAO.getFileRealName(projectID);
 		}
 
-		new ProjectDAO().update(projectID, fileName, fileRealName, title, content, status);
+		new ProjectDAO().update(projectID, fileName, fileRealName, title.replaceAll("\r\n", "<br>"), content.replaceAll("\r\n", "<br>"), status);
 		
 		response.sendRedirect("project.jsp");
 	}

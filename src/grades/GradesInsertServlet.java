@@ -28,7 +28,7 @@ public class GradesInsertServlet extends HttpServlet {
 			response.sendRedirect("grades.jsp");
 		}
 		
-		int result = new GradesDAO().insert(userID, type, Integer.parseInt(grade), Integer.parseInt(semester), subject, Integer.parseInt(score));
+		int result = new GradesDAO().insert(userID, type, Integer.parseInt(grade), Integer.parseInt(semester), subject.replaceAll("\r\n", "<br>"), Integer.parseInt(score));
 		
 		if(result == 1) {
 			request.getSession().setAttribute("messageContent", "등록되었습니다.");

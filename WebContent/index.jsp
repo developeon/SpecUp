@@ -1,3 +1,4 @@
+<%@page import="advertisement.AdvertisementDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -49,8 +50,8 @@
             display: block;
             padding: 10px;
         }
-        /* for footer */
         
+        /* for footer */
         html {
             height: 100%;
         }
@@ -104,6 +105,12 @@
                 transform: scale(1.4, 1.4);
             }
         }
+        
+        /* iframe css */
+        iframe {
+		    width: -webkit-fill-available;
+		    height: -webkit-fill-available;
+		}
     </style>
 </head>
 <body>
@@ -120,7 +127,8 @@
 	 	} else if(userID.equals("mirim")){
 	 	%>
 	 		<a href="index.jsp">홈</a> 
-	 		<a href="admin.jsp" target="iframe1">관리자</a> 
+	 		<a href="admin_member.jsp" target="iframe1">멤버관리</a> 
+	 		<a href="admin_advertisement.jsp" target="iframe1">광고관리</a> 
 	 		<a href="logout.jsp">로그아웃</a>
 	 	<% } else {
 	 	%>
@@ -143,7 +151,7 @@
     </nav>
     <hr>
     <section>
-        <iframe name="iframe1" frameborder="0" width="100%" height="100%" src="mainVideo.jsp"></iframe>
+	<iframe  name="iframe1" src="<%=new AdvertisementDAO().getAdPath()%>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </section>
     <footer> <small>&copy;</small> 2018. KimSoEon. All rights reserved.</footer>
 </body>

@@ -97,4 +97,12 @@
     <servlet-name>GradesUpdateServlet</servlet-name>
     <url-pattern>/gradesUpdate</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>AdInsertServlet</servlet-name>
+    <servlet-class>advertisement.AdInsertServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdInsertServlet</servlet-name>
+    <url-pattern>/addAdvertisement</url-pattern>
+  </servlet-mapping>
 </web-app>

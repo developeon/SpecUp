@@ -26,7 +26,7 @@ public class QuestionUpdateServlet extends HttpServlet {
 		String answer = request.getParameter("answer");
 		String type = request.getParameter("type");
 		
-		new QuestionDAO().update(questionID, question, answer, type);
+		new QuestionDAO().update(questionID, question.replaceAll("\r\n", "<br>"), answer.replaceAll("\r\n", "<br>"), type);
 		
 		response.sendRedirect("question.jsp");
 	}

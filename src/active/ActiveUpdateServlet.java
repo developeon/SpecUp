@@ -60,7 +60,7 @@ public class ActiveUpdateServlet extends HttpServlet {
 			fileRealName = activeDAO.getFileRealName(activeID);
 		}
 
-		new ActiveDAO().update(activeID, fileName, fileRealName, title, content, type);
+		new ActiveDAO().update(activeID, fileName, fileRealName, title.replaceAll("\r\n", "<br>"), content.replaceAll("\r\n", "<br>"), type);
 		
 		response.sendRedirect("active.jsp");
 	}

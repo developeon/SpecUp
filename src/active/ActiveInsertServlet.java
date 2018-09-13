@@ -43,7 +43,7 @@ public class ActiveInsertServlet extends HttpServlet {
 		String type = multi.getParameter("type");
 
 
-		new ActiveDAO().insert(userID,fileName, fileRealName, title, content, type);
+		new ActiveDAO().insert(userID, fileName, fileRealName, title.replaceAll("\r\n", "<br>"), content.replaceAll("\r\n", "<br>"), type);
 		
 		response.sendRedirect("active.jsp");
 	}

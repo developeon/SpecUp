@@ -33,7 +33,8 @@
 				<label for="question">질문</label> 
 				<input type="text" id="question" name="question" placeholder="Question"> 
 				<label for="answer">답</label>
-				<input type="text" id="answer" name="answer" placeholder="Your Answer">
+				<!-- <input type="text" id="answer" name="answer" placeholder="Your Answer"> -->
+				<textarea rows="3" cols="50" id="answer" name="answer" placeholder="Your Answer"></textarea>
 				<input type="submit" value="Submit">
 		</form>
 	</div>

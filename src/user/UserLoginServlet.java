@@ -21,7 +21,7 @@ public class UserLoginServlet extends HttpServlet {
 		if(userID.equals("mirim") && userPassword.equals("mirim")) {
 			request.getSession().setAttribute("userID", userID);
 			request.getSession().setAttribute("messageContent", "로그인에 성공했습니다.");
-			response.sendRedirect("admin.jsp");
+			response.sendRedirect("admin_member.jsp");
 			return;
 		}
 		

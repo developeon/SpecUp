@@ -9,8 +9,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import question.QuestionDTO;
-
 public class GradesDAO {
 	DataSource dataSource;
 

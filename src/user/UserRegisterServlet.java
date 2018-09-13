@@ -1,7 +1,6 @@
 package user;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -45,7 +44,7 @@ public class UserRegisterServlet extends HttpServlet {
 			info = "";
 		}
 
-		int result = new UserDAO().register(userID, userPassword1, userName, userTel, userGender, userEmail, mailOK, smsOK, info);
+		int result = new UserDAO().register(userID, userPassword1, userName, userTel, userGender, userEmail, mailOK, smsOK, info.replaceAll("\r\n", "<br>"));
 		if(result == 1) {
 			response.sendRedirect("login.jsp");
 		}

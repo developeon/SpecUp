@@ -46,7 +46,7 @@
 				<label for="question">질문</label> 
 				<input type="text" id="question" name="question" placeholder="Question" value=<%=question.getQuestion()%>> 
 				<label for="answer">답</label>
-				<input type="text" id="answer" name="answer" placeholder="Your Answer" value="<%=question.getAnswer()%>">
+				<textarea rows="3" cols="50" id="answer" name="answer" placeholder="Your Answer"><%=question.getAnswer().replaceAll("<br>", "\r\n")%></textarea>
 				<input type="submit" value="Submit">
 		</form>
 	</div>

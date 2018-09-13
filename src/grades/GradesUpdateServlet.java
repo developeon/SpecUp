@@ -35,7 +35,7 @@ public class GradesUpdateServlet extends HttpServlet {
 			gradesID = Integer.parseInt(keys.get(i).substring(7, keys.get(i).length()));
 			subject = request.getParameter(keys.get(i));
 			score = Integer.parseInt(request.getParameter(keys.get(i+1)));
-			gradesDAO.update(gradesID, subject, score);
+			gradesDAO.update(gradesID, subject.replaceAll("\r\n", "<br>"), score);
 		}
 		
 		response.sendRedirect("grades.jsp");

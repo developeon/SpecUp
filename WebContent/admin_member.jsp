@@ -5,14 +5,11 @@
 <head>
 	<meta charset="UTF-8">
 	<title>관리자 모드</title>
+	<link rel="stylesheet" href="css/admin.css">
 	<style>
-		* {
-			box-sizing: border-box;
-		}
-		
 		#search {
 			background-image: url('img/search.png');
-			background-position: 10px 10px;
+			background-position: 8px 8px;
 			background-repeat: no-repeat; width : 100%;
 			font-size: 16px;
 			padding: 12px 20px 12px 40px;
@@ -20,35 +17,14 @@
 			margin-bottom: 12px;
 			width: 100%;
 		}
-		
-		#myTable {
-			border-collapse: collapse;
-			width: 100%;
-			border: 1px solid #ddd;
-			font-size: 18px;
-		}
-		
-		#myTable th, #myTable td {
-			text-align: left;
-			padding: 12px;
-		}
-		
-		#myTable tr {
-			border-bottom: 1px solid #ddd;
-		}
-		
-		#myTable tr.header, #myTable tr:hover {
-			background-color: #f1f1f1;
-		}
-		.
 	</style>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
 <body>
 	<div class="container">
-		<input type="text" id="search" name="search"
+		<input type="text" class="form-control" id="search" name="search"
 			onkeyup="searchFunction()" placeholder="Search..">
-		<table id="myTable">
+		<table class="myTable">
 			<thead>
 				<tr class="header">
 					<th>아이디</th>
@@ -63,7 +39,6 @@
 			</tbody>
 		</table>
 	</div>
-
 	<%
 		String messageContent = null;
 		if (session.getAttribute("messageContent") != null) {
@@ -108,8 +83,8 @@
 					cell.innerHTML = result[i][j].value;
 					if (j == result[i].length - 1) {
 						var cell = row.insertCell(j + 1);
-						cell.innerHTML = "<input type='button' value='탈퇴' style='background: #e0dfdf;border: 1px solid #e0dfdf;' onclick='deleteFunction(\""
-								+ result[i][0].value + "\")'>";
+						cell.innerHTML = "<button class='btn btn-danger' onclick='deleteFunction(\""
+								+ result[i][0].value + "\")'>탈퇴</button";
 					}
 				}
 			}
