@@ -71,15 +71,10 @@
         }
         
         .header01 {
-            padding: 10px;
+        	position:fixed;
+            top:10px;
+            right: 10px;
             font-size: 0.7rem;
-            width: 60%;
-            margin: 0 auto;
-            text-align: right;
-        }
-        
-        hr {
-            margin: 0px;
         }
         
         .up {
@@ -111,48 +106,55 @@
 		    width: -webkit-fill-available;
 		    height: -webkit-fill-available;
 		}
+		
+		#active{
+			border-bottom: 3px solid #2461ab;
+		}
     </style>
 </head>
 <body>
-	<!-- git branch Test -->
 	 <header>
 		 <div class="header01"> 
 	 	<%
 	 	if(userID == null){
 	 	%>
-	 		<a href="index.jsp">홈</a> 
 	 		<a href="login.jsp" target="iframe1">로그인</a> 
 	 		<a href="join.jsp" target="iframe1">회원가입</a> 
 	 	<%
 	 	} else if(userID.equals("mirim")){
 	 	%>
-	 		<a href="index.jsp">홈</a> 
 	 		<a href="admin_member.jsp" target="iframe1">멤버관리</a> 
 	 		<a href="admin_advertisement.jsp" target="iframe1">광고관리</a> 
 	 		<a href="logout.jsp">로그아웃</a>
 	 	<% } else {
 	 	%>
-	 		<a href="index.jsp">홈</a> 
 	 		<a href="logout.jsp">로그아웃</a>
 	 	<%
 	 	}
 	 	%>
         </div>
-        <hr>
         <a href="index.jsp"> <img src="img/spec.png" height="100"> <img class="up" src="img/up.png" height="100"> </a>
     </header>
     <nav>
         <ul class="main-menu">
-            <li><a href="grades.jsp" target="iframe1">성적</a></li>
-            <li><a href="project.jsp" target="iframe1">프로젝트</a></li>
-            <li><a href="active.jsp" target="iframe1">활동</a></li>
-            <li><a href="question.jsp" target="iframe1">면접질문</a></li>
+            <li><a href="grades.jsp" id="main-menu01" target="iframe1" onclick="changeActive(1)">성적</a></li>
+            <li><a href="project.jsp" id="main-menu02" target="iframe1" onclick="changeActive(2)">프로젝트</a></li>
+            <li><a href="active.jsp" id="main-menu03" target="iframe1" onclick="changeActive(3)">활동</a></li>
+            <li><a href="question.jsp" id="main-menu04" target="iframe1" onclick="changeActive(4)">면접질문</a></li>
         </ul>
     </nav>
-    <hr>
-    <section>
-	<iframe  name="iframe1" src="<%=new AdvertisementDAO().getAdPath()%>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <section style="padding: 10px;">
+		<iframe  name="iframe1" src="<%=new AdvertisementDAO().getAdPath()%>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </section>
     <footer> <small>&copy;</small> 2018. KimSoEon. All rights reserved.</footer>
+    
+    <script>
+    	function changeActive(num){
+    		for(var i =1; i<=4; i++){
+    			document.getElementById("main-menu0" + i).style.borderBottom = "none";
+    		}
+    		document.getElementById("main-menu0" + num).style.borderBottom = "3px solid #2461ab";
+    	}
+    </script>
 </body>
 </html>
