@@ -25,22 +25,8 @@
 		body::-webkit-scrollbar {
 			display: none;
 		}
-		
-		.link-container {
-			text-align: center;
-		}
-		
-		.page-link {
-			background-color: #e0dfdf;
-			border: 1px solid #e0dfdf;
-			padding: 5px;
-			margin: 5px;
-			text-decoration: none;
-		}
-		
-		.disabled {
-			background: #c8c8c8;
-			border: 1px solid #c8c8c8;
+		#columns {
+			margin: 20px;
 		}
 	</style>
 	<!-- DROPDOWN 메뉴 -->
@@ -105,7 +91,7 @@
 			ArrayList<QuestionDTO> questionList = null;
 			questionList = new QuestionDAO().getList(userID, searchType, search, pageNumber);
 	%>
-	<nav style="margin-bottom: 20px;">
+	<nav>
 		<form action="question.jsp" method="get">
 			<select name="searchType">
 				<option value="전체">전체</option>
@@ -123,7 +109,8 @@
 			<button type="submit" class="search_btn"><i class="fa fa-search"></i></button>
 		</form>
 	</nav>
-
+	
+	<div id="columns">
 	<%
 		if (questionList != null) {
 			for (int i = 0; i < questionList.size(); i++) {
@@ -146,7 +133,8 @@
 			}
 		}
 	%>
-	<div class="link-container" style="margin-top: 60px;">
+	</div>
+	<div class="link-container">
 	<%	if (pageNumber <= 0) { %>
 		<a class="page-link disabled">이전</a>
 	<%	} else { %>

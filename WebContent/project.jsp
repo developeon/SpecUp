@@ -14,24 +14,6 @@
 	<link rel="stylesheet"
 		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-	<style>
-		.link-container{
-			text-align: center;
-		}
-		.page-link{
-			background: #e0dfdf;
-            border: 1px solid #e0dfdf;
-            padding: 5px;
-            margin: 5px;
-        	text-decoration: none;
-           
-        }
-        
-        .disabled{
-        	background: #c8c8c8;
-            border: 1px solid #c8c8c8;
-        }
-	</style>
 <title>프로젝트</title>
 </head>
 
