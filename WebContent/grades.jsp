@@ -142,7 +142,10 @@ pageEncoding="UTF-8"%>
 		}
 		if (messageContent != null) {
 	%>
-	<script> alert('<%=messageContent%>'); </script>
+	<script> 
+	parent.document.getElementById("main-menu01").style.borderBottom = "3px solid #2461ab";
+		alert('<%=messageContent%>'); 
+	</script>
 	<%
 		}
 		session.removeAttribute("messageContent");

@@ -30,7 +30,7 @@ public class UserLoginServlet extends HttpServlet {
 		if(result == 1) {
 			request.getSession().setAttribute("userID", userID);
 			request.getSession().setAttribute("messageContent", "로그인에 성공했습니다.");
-			response.sendRedirect("mainVideo.jsp");
+			response.sendRedirect("grades.jsp");
 			return;
 		}
 		else if(result == -1) {

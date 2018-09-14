@@ -9,6 +9,20 @@
 			userID = (String) session.getAttribute("userID");
 		}
 	%>
+	<%
+		String messageContent = null;
+		if(session.getAttribute("messageContent") != null){
+			messageContent = (String)session.getAttribute("messageContent");
+		}
+		if(messageContent != null){
+			%>
+			<script>
+				alert('<%=messageContent%>');
+			</script>
+			<% 
+		}
+		session.removeAttribute("messageContent");
+	%>
 	<meta charset="UTF-8">
     <meta name="Author" content="3102Kimsoeon">
     <title>SPEC UP</title>
