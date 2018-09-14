@@ -26,18 +26,19 @@
 </head>
 
 <body>
-	<form name="loginForm" action="./userLogin" method="post">
-		<div class="container">
-			<h1>Login</h1>
-			<hr>
-			<label for="userID"><b>ID</b></label> <input type="text" name="userID"
-				id="userID" placeholder="ID" required> <label for="userPassword"><b>Password</b></label>
-			<input type="password" id="userPassword" name="userPassword" placeholder="Password"
-				required>
-			<button type="button" class="submitBtn" onclick="checkFormFunction()">Login</button>
-		</div>
-	</form>
-	
+	<section>
+		<form name="loginForm" action="./userLogin" method="post">
+			<div class="container">
+				<h1>Login</h1>
+				<hr>
+				<label for="userID"><b>ID</b></label> <input type="text" name="userID"
+					id="userID" placeholder="ID" required> <label for="userPassword"><b>Password</b></label>
+				<input type="password" id="userPassword" name="userPassword" placeholder="Password"
+					required>
+				<button type="button" class="submitBtn" onclick="checkFormFunction()">Login</button>
+			</div>
+		</form>
+	</section>
 	<%
 		String messageContent = null;
 		if(session.getAttribute("messageContent") != null){

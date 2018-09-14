@@ -20,7 +20,7 @@
 			return;
 		}
 	%>
-	<div>
+	<section>
 		<form method="POST" action="./QuestionInsertServlet">
 			<input type="hidden" name="userID" value="<%=userID%>">
 			<h2 style="text-align: center;">면접질문 등록</h2>
@@ -37,7 +37,7 @@
 				<textarea rows="3" cols="50" id="answer" name="answer" placeholder="Your Answer"></textarea>
 				<input type="submit" value="Submit">
 		</form>
-	</div>
+	</section>
 </body>
 </html>
 

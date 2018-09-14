@@ -33,7 +33,7 @@
 		QuestionDAO questionDAO = new QuestionDAO();
 		QuestionDTO question = questionDAO.getQuestion(Integer.parseInt(questionID));
 	%>
-	<div>
+	<section>
 		<form method="POST" action="./questionUpdate">
 			<input type="hidden" name="questionID" value="<%=questionID%>">
 			<h2 style="text-align: center;">면접질문 수정</h2>
@@ -49,7 +49,7 @@
 				<textarea rows="3" cols="50" id="answer" name="answer" placeholder="Your Answer"><%=question.getAnswer().replaceAll("<br>", "\r\n")%></textarea>
 				<input type="submit" value="Submit">
 		</form>
-	</div>
+	</section>
 </body>
 </html>
 

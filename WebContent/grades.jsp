@@ -93,7 +93,6 @@ pageEncoding="UTF-8"%>
     			ArrayList<GradesDTO> gradesList = null;
     			for(int i=1; i<=3; i++){
     				for(int j=1; j<=2; j++){
-    					/* out.println("[" + i + "학년" + j + "학기" + "]"); */
     					gradesList = gradesDAO.getList(userID, type, i, j);
     					if(gradesList.size()>0){
     		%>
@@ -127,9 +126,9 @@ pageEncoding="UTF-8"%>
     			}
     		%>
 			
+     		<img class = "add" src = "img/addBtn.png" onClick="location.href='gradesInsert.jsp';">
      	</section>
      	
-     	<img class = "add" src = "img/addBtn.png" onClick="location.href='gradesInsert.jsp';">
      	
      <%
      } //userID != null

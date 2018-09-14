@@ -11,12 +11,10 @@
 	<meta name="Author" content="3102Kimsoeon">
 	<link rel="stylesheet" href="css/pinterest.css">
 	<link rel="stylesheet" href="css/common.css">
-	<link rel="stylesheet"
-		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <title>활동</title>
 </head>
-
 <body>
 	<% 
 		String userID = null;
@@ -58,43 +56,43 @@
 		</form>
 	</nav>
 	
-	<div id="columns">
-		<%
-		if(activeList != null){
-			for(int i=0; i<activeList.size(); i++){
-				if(i==18) break;
-				ActiveDTO active = activeList.get(i);
-		%>
-		<figure onclick="showDetailFunction(<%=active.getActiveID()%>)">
-			<img src="http://localhost:8080/SpecUp/upload/active/<%=active.getFileRealName()%>">
-			<figcaption>[<%=active.getType()%>] <%=active.getTitle()%></figcaption>
-		</figure>
-		<%}
-			}%>
-	</div>
-	
-	
-	<div class="link-container">
-	<%  if(pageNumber <= 0){
-			out.println("<a class='page-link disabled'>이전</a>");
-		} else{ %>
-			<a class="page-link" href="./active.jsp?searchType=<%=URLEncoder.encode(searchType,"UTF-8")%>
-				&search=<%=URLEncoder.encode(search,"UTF-8")%>&pageNumber=<%=pageNumber-1%>">이전</a>
-	<%  }
-	
-		if(activeList.size() < 19){
-			out.println("<a class='page-link disabled'>다음</a>");
-		} else{ %>
-			<a class="page-link" href="./active.jsp?searchType=<%=URLEncoder.encode(searchType,"UTF-8")%>
-					&search=<%=URLEncoder.encode(search,"UTF-8")%>&pageNumber=<%=pageNumber+1%>">다음</a>
-	<%  } %>
-	</div>
-	
-	<img class="add" src="img/addBtn.png" onClick="location.href='activeInsert.jsp';">
+	<section>
+		<div id="columns">
+			<%
+			if(activeList != null){
+				for(int i=0; i<activeList.size(); i++){
+					if(i==18) break;
+					ActiveDTO active = activeList.get(i);
+			%>
+			<figure onclick="showDetailFunction(<%=active.getActiveID()%>)">
+				<img src="http://localhost:8080/SpecUp/upload/active/<%=active.getFileRealName()%>">
+				<figcaption>[<%=active.getType()%>] <%=active.getTitle()%></figcaption>
+			</figure>
+			<%}
+				}%>
+		</div>
 		
-	<%
-	}
-	%>
+		<div class="link-container">
+		<%  if(pageNumber <= 0){
+				out.println("<a class='page-link disabled'>이전</a>");
+			} else{ %>
+				<a class="page-link" href="./active.jsp?searchType=<%=URLEncoder.encode(searchType,"UTF-8")%>
+					&search=<%=URLEncoder.encode(search,"UTF-8")%>&pageNumber=<%=pageNumber-1%>">이전</a>
+		<%  }
+		
+			if(activeList.size() < 19){
+				out.println("<a class='page-link disabled'>다음</a>");
+			} else{ %>
+				<a class="page-link" href="./active.jsp?searchType=<%=URLEncoder.encode(searchType,"UTF-8")%>
+						&search=<%=URLEncoder.encode(search,"UTF-8")%>&pageNumber=<%=pageNumber+1%>">다음</a>
+		<%  } %>
+		</div>
+			
+		<%
+		}
+		%>
+		<img class="add" src="img/addBtn.png" onClick="location.href='activeInsert.jsp';">
+	</section>
 		 
 	<!-- detail modal -->
 	<div id="detailModal" class="modal">

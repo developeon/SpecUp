@@ -58,43 +58,44 @@
 		</form>
 	</nav>
 	
-	<div id="columns">
-		<%
-		if(projectList != null){
-			for(int i=0; i<projectList.size(); i++){
-				if(i==18) break;
-				ProjectDTO project = projectList.get(i);
-		%>
-		<figure onclick="showDetailFunction(<%=project.getProjectID()%>)">
-			<img src="http://localhost:8080/SpecUp/upload/project/<%=project.getFileRealName()%>">
-			<figcaption>[<%=project.getStatus()%>] <%=project.getTitle()%></figcaption>
-		</figure>
-		<%}
-			}%>
-	</div>
-	
-	<div class="link-container">
-	<%  if(pageNumber <= 0){
-			out.println("<a class='page-link disabled'>이전</a>");
-		} else{ %>
-			<a class="page-link" href="./project.jsp?searchType=<%=URLEncoder.encode(searchType,"UTF-8")%>
-				&search=<%=URLEncoder.encode(search,"UTF-8")%>&pageNumber=<%=pageNumber-1%>">이전</a>
-	<%  }
-	
-		if(projectList.size() < 19){
-			out.println("<a class='page-link disabled'>다음</a>");
-		} else{ %>
-			<a class="page-link" href="./project.jsp?searchType=<%=URLEncoder.encode(searchType,"UTF-8")%>
-					&search=<%=URLEncoder.encode(search,"UTF-8")%>&pageNumber=<%=pageNumber+1%>">다음</a>
-	<%  } %>
-	</div>
-	
-	<img class="add" src="img/addBtn.png" onClick="location.href='projectInsert.jsp';">
+	<section>
+		<div id="columns">
+			<%
+			if(projectList != null){
+				for(int i=0; i<projectList.size(); i++){
+					if(i==18) break;
+					ProjectDTO project = projectList.get(i);
+			%>
+			<figure onclick="showDetailFunction(<%=project.getProjectID()%>)">
+				<img src="http://localhost:8080/SpecUp/upload/project/<%=project.getFileRealName()%>">
+				<figcaption>[<%=project.getStatus()%>] <%=project.getTitle()%></figcaption>
+			</figure>
+			<%}
+				}%>
+		</div>
 		
-	<%
-	}
-	%>
-		 
+		<div class="link-container">
+		<%  if(pageNumber <= 0){
+				out.println("<a class='page-link disabled'>이전</a>");
+			} else{ %>
+				<a class="page-link" href="./project.jsp?searchType=<%=URLEncoder.encode(searchType,"UTF-8")%>
+					&search=<%=URLEncoder.encode(search,"UTF-8")%>&pageNumber=<%=pageNumber-1%>">이전</a>
+		<%  }
+		
+			if(projectList.size() < 19){
+				out.println("<a class='page-link disabled'>다음</a>");
+			} else{ %>
+				<a class="page-link" href="./project.jsp?searchType=<%=URLEncoder.encode(searchType,"UTF-8")%>
+						&search=<%=URLEncoder.encode(search,"UTF-8")%>&pageNumber=<%=pageNumber+1%>">다음</a>
+		<%  } %>
+		</div>
+		
+			
+		<%
+		}
+		%>
+		<img class="add" src="img/addBtn.png" onClick="location.href='projectInsert.jsp';">
+	</section>
 	<!-- detail modal -->
 	<div id="detailModal" class="modal">
   		<div class="modal-content" style="position: relative;">

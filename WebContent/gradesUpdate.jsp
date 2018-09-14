@@ -46,7 +46,7 @@
 		ArrayList<GradesDTO> gradesList = gradesDAO.getList(userID, type, Integer.parseInt(grade), Integer.parseInt(semester));
 		GradesDTO gradesDTO = null;
 	%>
-	<div>
+	<section>
 		<form method="POST" action="./gradesUpdate">
 			<h2 style="text-align: center;">성적 수정</h2>
 	<%
@@ -62,7 +62,7 @@
 	%>
 			<input type="submit" value="수정완료">
 		</form>
-	</div>
+	</section>
 </body>
 </html>
 

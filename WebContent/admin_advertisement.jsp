@@ -13,7 +13,7 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
 <body>
-	<div class="container">
+	<section class="container">
         <form action="./addAdvertisement" method="post">
         	<h3>Add a Advertisement</h3>
         	<div class="form-group">
@@ -53,7 +53,7 @@
 				
 			</tbody>
 		</table>
-	</div>
+	</section>
 	
 	<!-- 광고 등록 결과 알림 -->
 	<%

@@ -111,10 +111,10 @@ pageEncoding="UTF-8"%>
 </head>
 
 <body>
-    <form name="registerForm" method="post" action="./userRegister">
+	<section class="container">
+		<form name="registerForm" method="post" action="./userRegister">
     	<input type="hidden" id="idCheckBox" name="idCheck" value="n">
     	<input type="hidden" id="passwordCheckBox" name="passwordCheck" value="n">
-       <div class="container">
             <h1>Join</h1>
             <hr>
                 <label for="userID"><b>ID</b>&nbsp;<span id="idCheck"></span></label>
@@ -153,10 +153,9 @@ pageEncoding="UTF-8"%>
                    <textarea rows="5" cols="50" id="info" name="info"></textarea>
                </p>
           	 <button type="reset" class="submitBtn">Cancel</button>
-             <button type="button" class="submitBtn" onclick="checkFormFunction()">Submit</button>
-           
-        </div>
-    </form>
+			<button type="button" class="submitBtn" onclick="checkFormFunction()">Submit</button>
+		</form>
+	</section>
 </body>
 
 </html>

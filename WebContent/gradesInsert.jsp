@@ -21,7 +21,7 @@
 			return;
 		}
 	%>
-	<div>
+	<section>
 		<form  method="post" action="./gradesInsert">
 			<input type="hidden" value="<%=userID%>" name="userID">
 			<h2 style="text-align: center;">성적 등록</h2>
@@ -53,7 +53,7 @@
 				<input type="reset" value="Cancel"> 
 				<input type="submit" value="Submit">
 		</form>
-	</div>
+	</section>
 </body>
 
 </html>

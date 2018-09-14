@@ -34,9 +34,10 @@
 		ActiveDAO activeDAO = new ActiveDAO();
 		ActiveDTO active = activeDAO.getActive(Integer.parseInt(activeID));
 	%>
-	<button type="button" style="position: fixed; top: 10px; right: 10px;"
-		onclick="parent.document.getElementById('detailFrame').style.display = 'none';">&times;</button>
-	<div>
+	
+	<section>
+		<button type="button" style="position: fixed; top: 10px; right: 10px;"
+			onclick="parent.document.getElementById('detailFrame').style.display = 'none';">&times;</button>
 		<form  method="post" action="./activeUpdate" enctype="multipart/form-data">
 			<input type="hidden" value="<%=activeID%>" name="activeID">
 			<h2 style="text-align: center;">활동 수정</h2>
@@ -57,7 +58,8 @@
 				</p>
 				<input type="submit" value="Submit">
 		</form>
-	</div>
+	</section>
+	
 	<script>
 		function uploadImgFunction(){
 			var imgPath = document.getElementById('uploadImg').value;

@@ -110,50 +110,50 @@
 		</form>
 	</nav>
 	
-	<div id="columns">
-	<%
-		if (questionList != null) {
-			for (int i = 0; i < questionList.size(); i++) {
-				if (i == 5) break;
-				QuestionDTO question = questionList.get(i);
-	%>
-	<details>
-		<summary>[<%=question.getType()%>] <%=question.getQuestion()%>
-			<span class="dropdown" style="float:right;">
-				<i class="fa fa-ellipsis-v" style="font-size:24px" class="dropbtn"></i>
-				<span class="dropdown-content">
-					<a href="questionUpdate.jsp?questionID=<%=question.getQuestionID()%>">수정</a>
-					<a href="#" onclick="deleteFunction(<%=question.getQuestionID()%>)">삭제</a>
+	<section>
+		<div id="columns">
+		<%
+			if (questionList != null) {
+				for (int i = 0; i < questionList.size(); i++) {
+					if (i == 5) break;
+					QuestionDTO question = questionList.get(i);
+		%>
+		<details>
+			<summary>[<%=question.getType()%>] <%=question.getQuestion()%>
+				<span class="dropdown" style="float:right;">
+					<i class="fa fa-ellipsis-v" style="font-size:24px" class="dropbtn"></i>
+					<span class="dropdown-content">
+						<a href="questionUpdate.jsp?questionID=<%=question.getQuestionID()%>">수정</a>
+						<a href="#" onclick="deleteFunction(<%=question.getQuestionID()%>)">삭제</a>
+					</span>
 				</span>
-			</span>
-		</summary>
-		<p><%=question.getAnswer()%></p>
-	</details>
-	<%
+			</summary>
+			<p><%=question.getAnswer()%></p>
+		</details>
+		<%
+				}
 			}
+		%>
+		</div>
+		<div class="link-container">
+		<%	if (pageNumber <= 0) { %>
+			<a class="page-link disabled">이전</a>
+		<%	} else { %>
+			<a class="page-link" href="./question.jsp?searchType=<%=URLEncoder.encode(searchType, "UTF-8")%>
+					&search=<%=URLEncoder.encode(search, "UTF-8")%>&pageNumber=<%=pageNumber - 1%>">이전</a>
+		<%	}
+			if (questionList.size() < 6) { %>
+			<a class="page-link disabled">다음</a>
+		<%	} else { %>
+			<a class="page-link" href="./question.jsp?searchType=<%=URLEncoder.encode(searchType, "UTF-8")%>
+					&search=<%=URLEncoder.encode(search, "UTF-8")%>&pageNumber=<%=pageNumber + 1%>">다음</a>
+		<%	} %>
+		</div>
+		<%
 		}
-	%>
-	</div>
-	<div class="link-container">
-	<%	if (pageNumber <= 0) { %>
-		<a class="page-link disabled">이전</a>
-	<%	} else { %>
-		<a class="page-link" href="./question.jsp?searchType=<%=URLEncoder.encode(searchType, "UTF-8")%>
-				&search=<%=URLEncoder.encode(search, "UTF-8")%>&pageNumber=<%=pageNumber - 1%>">이전</a>
-	<%	}
-		if (questionList.size() < 6) { %>
-		<a class="page-link disabled">다음</a>
-	<%	} else { %>
-		<a class="page-link" href="./question.jsp?searchType=<%=URLEncoder.encode(searchType, "UTF-8")%>
-				&search=<%=URLEncoder.encode(search, "UTF-8")%>&pageNumber=<%=pageNumber + 1%>">다음</a>
-	<%	} %>
-	</div>
-	<img class="add" src="img/addBtn.png" onClick="location.href='questionInsert.jsp';">
-
-	<%
-	}
-	%>
-
+		%>
+		<img class="add" src="img/addBtn.png" onClick="location.href='questionInsert.jsp';">
+	</section>
 	<%
 		String messageContent = null;
 		if (session.getAttribute("messageContent") != null) {

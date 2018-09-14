@@ -34,9 +34,10 @@
 		ProjectDAO projectDAO = new ProjectDAO();
 		ProjectDTO project = projectDAO.getProject(Integer.parseInt(projectID));
 	%>
-	<button type="button" style="position: fixed; top: 10px; right: 10px;"
+	
+	<section>
+		<button type="button" style="position: fixed; top: 10px; right: 10px;"
 		onclick="parent.document.getElementById('detailFrame').style.display = 'none';">&times;</button>
-	<div>
 		<form  method="post" action="./projectUpdate" enctype="multipart/form-data">
 			<input type="hidden" value="<%=projectID%>" name="projectID">
 			<h2 style="text-align: center;">프로젝트 수정</h2>
@@ -57,7 +58,7 @@
 				</p>
 				<input type="submit" value="Submit">
 		</form>
-	</div>
+	</section>
 	<script>
 		function uploadImgFunction(){
 			var imgPath = document.getElementById('uploadImg').value;

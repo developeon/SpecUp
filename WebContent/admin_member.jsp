@@ -21,7 +21,7 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
 <body>
-	<div class="container">
+	<section class="container">
 		<input type="text" class="form-control" id="search" name="search"
 			onkeyup="searchFunction()" placeholder="Search..">
 		<table class="myTable">
@@ -38,7 +38,8 @@
 			<tbody id="ajaxTable">
 			</tbody>
 		</table>
-	</div>
+	</section>
+	
 	<%
 		String messageContent = null;
 		if (session.getAttribute("messageContent") != null) {
